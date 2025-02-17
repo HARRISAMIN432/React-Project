@@ -1,9 +1,10 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Row from "./common/Row";
 
 function ProductCart() {
   return (
-    <div className="w-full pb-[5px] shadow">
+    <Link className="w-full pb-[5px] shadow" to="/product-detail">
       <img
         src="https://images.unsplash.com/photo-1511556820780-d912e42b4980?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZHVjdHN8ZW58MHx8MHx8fDA%3D"
         alt=""
@@ -18,7 +19,7 @@ function ProductCart() {
         <p className="text-[16px] text-[#00000080]">Clothing</p>
         <p className="text-[16px] text-[#00000080] font-semibold">$20</p>
       </Row>
-    </div>
+    </Link>
   );
 }
 
