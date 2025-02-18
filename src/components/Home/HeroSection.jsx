@@ -1,5 +1,6 @@
 import React from "react";
 import Row from "../common/Row";
+import Button from "../common/Button";
 
 function HeroSection() {
   return (
@@ -11,9 +12,7 @@ function HeroSection() {
             You can explore and shop many different collections from different
             products here
           </p>
-          <button className="h-[50px] w-[20%] text-white bg-black text-[20px] mt-[50px] font-medium">
-            Shop now
-          </button>
+          <Button />
         </div>
         <div className="w-[42%]">
           <div className="w-[400px] h-[450px] relative">

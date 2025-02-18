@@ -19,7 +19,12 @@ function TopHeader() {
         <Row>
           <Row>
             <HeaderButton title="Account" Icon={UserIcon} />
-            <HeaderButton title="Cart" Icon={Cart} className="ml-[5px]" />
+            <HeaderButton
+              title="Cart"
+              Icon={Cart}
+              className="ml-[5px]"
+              url="/cart"
+            />
           </Row>
         </Row>
       </Row>
