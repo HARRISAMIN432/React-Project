@@ -1,9 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Row from "../common/Row";
 import Container from "../common/Container";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import apiEndpoints from "../../apis/endPoint";
+import client from "../../apis";
 
 function PopularProducts() {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    try {
+      const response = await client.get(apiEndpoints.products());
+      setProducts((await response).data.docs);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Container>
       <Row className="justify-center my-[20px] uppercase mt-[90px]">
@@ -17,51 +35,28 @@ function PopularProducts() {
             Explore new and popular styles
           </p>
         </div>
-        <Link to="/product-Detail">
+        <Link to={`product/${products[0]?.img}`}>
           <img
             className="w-[570px] h-[600px] cursor-pointer object-cover ml-[30px]"
-            src="https://images.unsplash.com/photo-1617720197345-5e5235ec6220?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fHBlYWNlfGVufDB8fDB8fHww"
+            src={products[0] && products[0].img}
             alt=""
           />
         </Link>
 
-        <Row className="w-[50%] flex-wrap gap-[24px] ml-[30px]">
-          <div className="w-[46%] h-[272px]">
-            <Link to="/product-detail">
+        <Row className="flex-wrap w-1/2 gap-[24px]">
+          {products.slice(1).map((item, idx) => {
+            <Link
+              to={`/product/:${item._id}`}
+              className="w-[46%] h-[312px]"
+              key={item._id}
+            >
               <img
-                className="w-[272px] h-full object-cover"
-                src="https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8amV3ZWxsZXJ5fGVufDB8fDB8fHww"
+                src={item.img}
                 alt=""
+                className="w-[46%] h-full object-cover"
               />
-            </Link>
-          </div>
-          <div className="w-[46%] h-[272px]">
-            <Link to="/product-detail">
-              <img
-                className="w-[272px] h-full object-cover"
-                src="https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8amV3ZWxsZXJ5fGVufDB8fDB8fHww"
-                alt=""
-              />
-            </Link>
-          </div>
-          <div className="w-[46%] h-[272px]">
-            <Link to="/product-detail">
-              <img
-                className="w-[272px] h-full object-cover"
-                src="https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8amV3ZWxsZXJ5fGVufDB8fDB8fHww"
-                alt=""
-              />
-            </Link>
-          </div>
-          <div className="w-[46%] h-[272px]">
-            <Link to="product-detail">
-              <img
-                className="w-[272px] h-full object-cover"
-                src="https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8amV3ZWxsZXJ5fGVufDB8fDB8fHww"
-                alt=""
-              />
-            </Link>
-          </div>
+            </Link>;
+          })}
         </Row>
       </Row>
     </Container>
